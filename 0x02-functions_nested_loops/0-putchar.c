@@ -1,20 +1,12 @@
-#ifndef HEADER_FILE
-#ifndef HEADER_FILE
-#include "main.h"
+#include <stdio.h>
+#include <stdib.h>
+#include <time.h>
 /**
 * main - print putchar
 * Return: always 0
 */
 int main(void)
 {
-_putchar('_');
-_putchar('p');
-_putchar('u');
-_putchar('t');
-_putchar('c');
-_putchar('h');
-_putchar('a');
-_putchar('r');
-_putchar('\n');
+printf("0-putchar.c\n");
 return (0);
 }
