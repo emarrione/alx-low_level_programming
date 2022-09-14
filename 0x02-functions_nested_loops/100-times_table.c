@@ -10,7 +10,6 @@ int j;
 if (n <= 15 && n >= 0)
 {
 for (i = 0; i <= n; i++)
-{
 for (j = 0; j <= n; j++)
 {
 int prod = j * i;
@@ -43,7 +42,6 @@ _putchar('0' + (prod / 10));
 _putchar('0' + (prod % 10));
 }
 }
-_putchar('\n');
-}
+ _putchar('\n');;
 }
 }
