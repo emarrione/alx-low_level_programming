@@ -3,7 +3,7 @@
 * main - print 1 to 100 with fizzbuzz
 * Return: 0
 */
-int main(void)  
+int main(void)
 {
 int i;
 i = 1;
