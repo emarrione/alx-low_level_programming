@@ -1,93 +1,69 @@
 #include "main.h"
+#include <stdlib.h>
 /**
-* _isspace - checks if a char is a whitespace
-* @c: a char
-* Return: 1 if it is a whitespac, else 0
-*/
-int _isspace(char c)
+* wrdcnt - counts the number of words in a string
+* @s: string to count
+* Return: int of number of words
+**/
+int wrdcnt(char *s)
 {
-if (c == ' ' || c == '\t' || c == '\n')
-return (1);
-return (0);
+int i, n = 0;
+for (i = 0; s[i]; i++)
+if (s[i] == ' ')
+{
+if (s[i + 1] != ' ' && s[i + 1] != '\0')
+n++;
 }
-/**
-* nextword - skip all spaces and jump to the start of the next word
-* @str: a string
-* Return: a pointer to the beginning of the next word
-*/
-char *nextword(char *str)
-{
-if (!_isspace(*str))
-return (str);
-return (nextword(str + 1));
+else if (i == 0)
+n++;
 }
-/**
-* countchars - count the character in the first word of a string
-* @str: a string
-* Return: the length of the word
-*/
-unsigned int countchars(char *str)
-{
-if (_isspace(*str) || !*str)
-return (0);
-return (1 + countchars(str + 1));
+n++;
+return (n);
 }
 /**
-* countwords - count how wany words are in a string
-* @str: a string
-* Return: the number of words in the string
-*/
-unsigned int countwords(char *str)
-{
-char *s = str;
-unsigned int wc = 0;
-char state = 0;
-while (*s)
-{
-if (_isspace(*s))
-state = 0;
-else if (state == 0)
-{
-state = 1;
-++wc;
-}
-++s;
-}
-return (wc);
-}
-/**
-* strtow - split a string into words
-* @str: a string
-* Return: an array of words found in the string
-*/
+* strtow - splits a string into words
+* @str: string to split
+* Return: pointer to an array of strings
+**/
 char **strtow(char *str)
 {
-char **words;
-char *word;
-unsigned int w, i, c, length, wc;
-if (str == NULL || !*str)
+int i, j, k, l, n = 0, wc = 0;
+char **w;
+if (str == NULL || *str == '\0')
 return (NULL);
-word = nextword(str);
-wc = countwords(word);
-words = (char **)malloc((wc + 1) * sizeof(char *));
-if (words == NULL)
+n = wrdcnt(str);
+if (n == 1)
 return (NULL);
-for (w = 0; w < wc; w++)
+w = (char **)malloc(n * sizeof(char *));
+if (w == NULL)
+return (NULL);
+w[n - 1] = NULL;
+i = 0;
+while (str[i])
 {
-length = countchars(word);
-words[w] = (char *)malloc(sizeof(char) * length + 1);
-if (words[w] == NULL)
+if (str[i] != ' ' && (i == 0 || str[i - 1] == ' '))
 {
-for (i = 0; i < w; i++)
-free(words[i]);
-free(words);
+for (j = 1; str[i + j] != ' ' && str[i + j]; j++)
+;
+j++;
+w[wc] = (char *)malloc(j * sizeof(char));
+j--;
+if (w[wc] == NULL)
+{
+for (k = 0; k < wc; k++)
+free(w[k]);
+free(w[n - 1]);
+free(w);
 return (NULL);
 }
-for (c = 0; c < length; c++)
-words[w][c] = word[c];
-words[w][c] = '\0';
-word = nextword(word + length);
+for (l = 0; l < j; l++)
+w[wc][l] = str[i + l];
+w[wc][l] = '\0';
+wc++;
+i += j;
 }
-words[w] = NULL;
-return (words);
+else
+i++;
+}
+return (w);
 }
