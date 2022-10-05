@@ -47,7 +47,7 @@ while (*s)
 if (_isspace(*s))
 state = 0;
 else if (state == 0)
-{	
+{
 state = 1;
 ++wc;
 }
