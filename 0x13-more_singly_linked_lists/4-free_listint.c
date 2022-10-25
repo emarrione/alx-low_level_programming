@@ -6,7 +6,7 @@
 */
 void free_listint(listint_t *head)
 {
- listint_t *firstnode;
+listint_t *firstnode;
 /* check if head is null */
 /* if yes the list is empty and we just return */
 while (head != NULL)
